@@ -5,11 +5,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FirstPageComponent } from './first-page/first-page.component';
 import { FormsModule } from '@angular/forms';
+import { DeliveryOrderComponent } from './delivery-order/delivery-order.component';
+import { DeliveryListComponent } from './delivery-list/delivery-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    FirstPageComponent
+    FirstPageComponent,
+    DeliveryOrderComponent,
+    DeliveryListComponent
   ],
   imports: [
     BrowserModule,
