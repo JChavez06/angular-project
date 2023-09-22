@@ -1,37 +1,52 @@
-<div class="jumbotron">
-    <h2>Creación de Ordenes de entrega</h2>
+  <h2>Creación de Ordenes de entrega</h2>
 
-    <div>
-      <p class="lead">
-        <span>Nombre completo:</span>
-        <input type="text" [(ngModel)]="newDelivery.fullName">
-      </p>
+  <form [formGroup]="formularioContacto" (ngSubmit)="submit()">
+    <p>Nombre:
+      <input type="text" onkeydown="return /[a-z, ]/i.test(event.key)" [(ngModel)]="newDelivery.fullName" formControlName="nombre" required>
+      <span *ngIf="this.formularioContacto.get('nombre')?.errors?.['required']">
+        (El nombre no puede quedar vacío)
+      </span>
+      <span *ngIf="this.formularioContacto.get('nombre')?.errors?.['minlength']">
+        (Debe tener como mínimo 10 caracteres)
+      </span>
+    </p>
+    <p>Direccion:
+      <input type="text" [(ngModel)]="newDelivery.fullAddress" formControlName="direccion" required>
+      <span *ngIf="this.formularioContacto.get('direccion')?.errors?.['required']">
+        (La dirección no puede quedar vacío)
+      </span>
+      <span *ngIf="this.formularioContacto.get('direccion')?.errors?.['minlength']">
+        (Debe tener como mínimo 10 caracteres)
+      </span>
+    </p>
+    <p>Correo:
+      <input type="text" [(ngModel)]="newDelivery.email" formControlName="mail">
+      <span *ngIf="this.formularioContacto.get('mail')?.errors?.['required']">
+        (El mail no puede quedar vacío)
+      </span>
+      <span *ngIf="this.formularioContacto.get('mail')?.errors?.['email']">
+        (El mail no es válido)
+      </span>
+    </p>
+    <p>Descripcion:<br>
+      <textarea rows="10" cols="70" [(ngModel)]="newDelivery.description" formControlName="descripcion"></textarea>
+    </p>
+    <div *ngIf="this.formularioContacto.get('descripcion')?.errors?.['required']">
+      (La descripcion no puede quedar vacía)
     </div>
-    <div>
-      <p class="lead">
-        <span>Dirección:</span>
-        <input type="text" [(ngModel)]="newDelivery.fullAddress">
-      </p>
+    <div *ngIf="this.formularioContacto.get('descripcion')?.errors?.['maxlength']">
+      (Debe tener como máximo 200 caracteres)
     </div>
-    <div>
-      <p class="lead">
-        <span>Email:</span>
-        <input type="text" [(ngModel)]="newDelivery.email">
-      </p>
+    <div *ngIf="this.formularioContacto.get('descripcion')?.errors?.['minlength']">
+      (Debe tener como minimo 40 caracteres)
     </div>
-    <div>
-        <p class="lead">
-          <span>Descripcion:</span>
-          <input type="text" [(ngModel)]="newDelivery.description">
-        </p>
-      </div>
-      <div>
-        <h2>Cantidad de ordenes: {{deliveriesSize}}</h2>
-      </div>
-    <div>
-      <button type="button" class="btn btn-primary" (click)="saveNewDeliveryOrder()">Guardar</button>
-    </div>
-    <div>
-      <button type="button" class="btn btn-primary" (click)="goToOrderList()">Ver listado</button>
-  </div>
+    <button class="btn btn-primary" type="submit"(click)="saveNewDeliveryOrder()">Guardar</button>
+   
+  </form>
+  <div>{{resultado}}</div>
+  <div>
+    <button type="button" class="btn btn-primary" (click)="goToOrderList()">Ver listado</button>
+</div>
+  <div>
+    <h2>Cantidad de ordenes: {{deliveriesSize}}</h2>
   </div>
